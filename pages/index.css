@@ -1,0 +1,165 @@
+@import url(../vendor/normalize.css);
+@import url(../vendor/font.css);
+@import url(../blocks/page.css);
+@import url(../blocks/header.css);
+@import url(../blocks/nav.css);
+@import url(../blocks/profile.css);
+@import url(../blocks/card.css);
+@import url(../blocks/footer.css);
+
+@media screen and (min-width: 321px) and (max-width: 900px) {
+  .page__section {
+    max-width: calc(100% - 40px);
+    padding: 0 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profile__add-button {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #fff;
+
+    margin-left: auto;
+  }
+
+  .profile__info {
+    grid-template-columns: minmax(auto, 1fr);
+  }
+
+  .profile__title {
+    font-size: 2em;
+  }
+
+  .profile__edit-button {
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .header {
+    margin: 0;
+    width: 100%;
+    padding-top: 8.75%;
+  }
+
+  .header__logo {
+    width: 126px;
+    height: 24px;
+    margin-left: 8.43%;
+  }
+
+  .profile {
+    flex-direction: column;
+    padding: 42px 0 0 0;
+  }
+
+  .profile__avatar {
+    margin: 0 80px 0 82px;
+    margin-bottom: 30px;
+  }
+
+  .profile__info {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .profile__title {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .profile__edit-button {
+    margin: 0 0 0 10px;
+  }
+
+  .profile__description {
+    width: 100%;
+    margin-top: 14px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .profile__add-button {
+    margin: 36px 0;
+    padding: 0;
+    width: 282px;
+    border: 1px solid #fff;
+  }
+
+  .cards {
+    margin: 0;
+  }
+
+  .footer {
+    padding: 48px 0 36px 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .footer__copyright {
+    font-size: 14px;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .page__section {
+    width: 88.125%;
+    position: relative;
+    margin: 0 19px;
+  }
+
+  /**
+  .profile__avatar {
+    margin: 0 80px 0 82px;
+    margin-bottom: 30px;
+  }
+
+  .profile__info {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .profile__title {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .profile__edit-button {
+    margin: 0 0 0 10px;
+  }
+
+  .profile__description {
+    width: 100%;
+    margin-top: 14px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .profile__add-button {
+    margin: 36px 0;
+    padding: 0;
+    width: 100%;
+    border: 1px solid #fff;
+  }
+
+  .footer {
+    margin: 12.5% 5.9375% 11.25%;
+  }
+
+  .footer__copyright {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  **/
+}
