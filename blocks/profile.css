@@ -16,7 +16,7 @@
   grid-template-areas:
     "title edit-button"
     "description description";
-  grid-template-columns: minmax(auto, 373px) auto;
+  grid-template-columns: minmax(auto, 375px) auto;
 }
 
 .profile__title {
