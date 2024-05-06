@@ -8,3 +8,17 @@
   height: 33px;
   margin-bottom: 41px;
 }
+
+@media screen and (max-width: 620px) {
+  .header {
+    margin: 0;
+    width: 100%;
+    padding-top: 8.75%;
+  }
+
+  .header__logo {
+    width: 126px;
+    height: 24px;
+    margin-left: 8.43%;
+  }
+}
