@@ -83,6 +83,14 @@
 }
 
 @media screen and (max-width: 768px) {
+  .profile {
+    gap: 10px;
+  }
+
+  .profile__avatar {
+    margin-right: 20px;
+  }
+
   .profile__add-button {
     width: 50px;
     margin-left: auto;
@@ -113,8 +121,8 @@
   }
 
   .profile__info {
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex;
+    flex-wrap: wrap; */
     width: 100%;
     justify-content: center;
   }
