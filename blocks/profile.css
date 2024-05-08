@@ -60,6 +60,8 @@
 
   grid-area: edit-button;
   transition: opacity 1.5s ease;
+
+  cursor: pointer;
 }
 
 .profile__edit-button:hover {
@@ -76,6 +78,7 @@
   margin-left: auto;
 
   transition: opacity 1.5s ease;
+  cursor: pointer;
 }
 
 .profile__add-button:hover {
@@ -123,7 +126,7 @@
   .profile__info {
     /* display: flex;
     flex-wrap: wrap; */
-    width: 100%;
+    max-width: 100%;
     justify-content: center;
   }
 
