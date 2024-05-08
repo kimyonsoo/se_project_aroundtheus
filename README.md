@@ -9,4 +9,4 @@ This project is the third project of the Software Engineering program at [Triple
 - Flat BEM file structure
 - Responsive design
 
-For a more deatiled look at how my project works, please check out this [overview] (This will be updated by second iteration after fixing most critical bugs).
+For a more deatiled look at how my project works, please check out this [overview] ((https://drive.google.com/file/d/1qTITu109Q9RA_bWrL76RK-xr2GK-03K_/view?usp=sharing).
