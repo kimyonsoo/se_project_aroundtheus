@@ -2,25 +2,19 @@
   list-style-type: none;
   display: flex;
   flex-direction: column;
-
   border-radius: 10px;
 }
 
 .card__image {
   width: 282px;
   height: 282px;
-
   border-radius: 10px;
-}
-
-.card__image_fit_cover {
   object-fit: cover;
 }
 
 .card__description {
   background-color: white;
   color: black;
-
   padding: 25px 20px;
   display: flex;
   align-items: center;
@@ -34,7 +28,6 @@
   font-size: 24px;
   line-height: 1.2;
   width: 90%;
-
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
