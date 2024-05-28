@@ -59,6 +59,7 @@
   font-size: 24px;
   font-weight: 900;
   line-height: 1.2;
+  margin: 0 0 54px 0;
 }
 
 .modal__button {
@@ -86,7 +87,7 @@
 }
 
 .modal__fieldset {
-  padding: 54px 0 0 0;
+  padding: 0;
   margin: 0;
 
   border: none;
