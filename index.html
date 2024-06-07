@@ -43,7 +43,11 @@
                 Explorer
               </p>
             </div>
-            <button type="button" class="profile__add-button"></button>
+            <button
+              type="button"
+              id="add-card-button"
+              class="profile__add-button"
+            ></button>
           </section>
           <section class="cards page__section">
             <ul class="cards__list"></ul>
@@ -69,7 +73,7 @@
           <fieldset class="modal__fieldset">
             <input
               type="text"
-              class="modal__input modal__input_type_titlle"
+              class="modal__input modal__input_type_title"
               id="profile-title-input"
               name="title"
               placeholder="Name"
@@ -89,14 +93,14 @@
 
     <!-- Add card modal -->
 
-    <div class="modal" id="card-edit-modal">
+    <div class="modal" id="add-card-modal">
       <div class="modal__container">
         <button
           type="button"
           class="modal__close"
-          id="card-edit-modal-close-button"
+          id="add-card-modal-close-button"
         ></button>
-        <form class="modal__form">
+        <form class="modal__form" id="add-card-form">
           <h2 class="modal__heading">New Place</h2>
           <fieldset class="modal__fieldset">
             <input
@@ -109,7 +113,7 @@
             <input
               type="text"
               class="modal__input modal__input_type_url"
-              id="card-description-input"
+              id="card-url-input"
               name="url"
               placeholder="Image URL"
             />
