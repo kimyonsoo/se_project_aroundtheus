@@ -127,6 +127,7 @@ addCardButton.addEventListener("click", () => {
   openPopUp(addCardModal);
   console.log("success");
 });
-addCardButton.addEventListener("click", () => {
+
+addCardModalCloseButton.addEventListener("click", () => {
   closePopUp(addCardModal);
 });
