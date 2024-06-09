@@ -83,10 +83,24 @@ function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
+  const likeButton = cardElement.querySelector(".card__like-button");
+
+  // 5/7
+  // find delete button
+
+  // add the eventlistener to the delete button
+  // cardElement.remove()
+
+  // 6/7
+  // add click listener to the cardImageEl
+  // openPopUp() with preview image modal
+
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__like-button_active");
+  });
 
   cardImageEl.alt = cardData.name;
   cardImageEl.src = cardData.link;
-
   cardTitleEl.textContent = cardData.name;
 
   cardListEl.prepend(cardElement);
