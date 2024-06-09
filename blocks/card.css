@@ -1,6 +1,7 @@
 .card {
   list-style-type: none;
   display: flex;
+  position: relative;
   flex-direction: column;
   border-radius: 10px;
 }
@@ -68,5 +69,5 @@
 }
 
 .card__delete-button:hover {
-  opacity: 50%;
+  opacity: 60%;
 }

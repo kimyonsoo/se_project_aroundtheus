@@ -84,6 +84,7 @@ function getCardElement(cardData) {
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
   const likeButton = cardElement.querySelector(".card__like-button");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
 
   // 5/7
   // find delete button
@@ -97,6 +98,10 @@ function getCardElement(cardData) {
 
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
+  });
+
+  deleteButton.addEventListener("click", () => {
+    deleteButton.classList.toggle("card__delete-button");
   });
 
   cardImageEl.alt = cardData.name;
