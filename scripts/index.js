@@ -86,12 +86,6 @@ function getCardElement(cardData) {
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
 
-  // 5/7
-  // find delete button
-
-  // add the eventlistener to the delete button
-  // cardElement.remove()
-
   // 6/7
   // add click listener to the cardImageEl
   // openPopUp() with preview image modal
@@ -101,7 +95,7 @@ function getCardElement(cardData) {
   });
 
   deleteButton.addEventListener("click", () => {
-    deleteButton.classList.toggle("card__delete-button");
+    cardElement.remove();
   });
 
   cardImageEl.alt = cardData.name;
