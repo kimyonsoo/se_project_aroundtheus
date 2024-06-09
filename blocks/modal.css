@@ -31,6 +31,11 @@
   border-radius: 10px;
 }
 
+.modal__container_style_preview {
+  padding: 0;
+  background-color: transparent;
+}
+
 .modal__close {
   position: absolute;
 
@@ -112,6 +117,22 @@
   border-left: 1px;
   border-right: 1px;
   border-color: rgba(0, 0, 0, 0.2);
+}
+
+.modal__title {
+  color: #fff;
+
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.modal__image {
+  max-width: 75vw;
+  max-height: 75vh;
+  padding-bottom: 10px;
 }
 
 @media screen and (max-width: 620px) {
