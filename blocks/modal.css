@@ -2,7 +2,7 @@
   flex-wrap: wrap;
   display: flex;
 
-  position: absolute;
+  position: fixed;
   z-index: 999;
 
   top: 0;
