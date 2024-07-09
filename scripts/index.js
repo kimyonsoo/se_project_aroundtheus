@@ -69,10 +69,14 @@ const viewImageModalCloseButton = viewImageModal.querySelector(
 
 function openPopUp(modal) {
   modal.classList.add("modal_opened");
+  modal.addEventListener("click", handleOverlayClose);
+  document.addEventListener("keydown", handleEscClose);
 }
 
 function closePopUp(modal) {
   modal.classList.remove("modal_opened");
+  modal.removeEventListener("click", handleOverlayClose);
+  document.removeEventListener("keydown", handleEscClose);
 }
 
 function fillProfileForm() {
@@ -139,6 +143,18 @@ function renderCard(cardData, cardList) {
   cardList.prepend(cardElement);
 }
 
+function handleOverlayClose(evt) {
+  if (Array.from(evt.target.classList).includes("modal")) {
+    closePopUp(evt.target);
+  }
+}
+
+function handleEscClose(evt) {
+  if (evt.key == "Escape" && evt.type === "keydown") {
+    const modal = document.querySelector(".modal_opened");
+    closePopUp(modal);
+  }
+}
 /* Event Listeners */
 
 closeButtons.forEach((button) => {

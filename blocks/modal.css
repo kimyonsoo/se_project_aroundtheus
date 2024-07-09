@@ -93,6 +93,13 @@
   cursor: pointer;
 }
 
+.modal__button_disabled {
+  border: 1px solid #000;
+  opacity: 20%;
+  background-color: #fff;
+  color: #000;
+}
+
 .modal__button:hover {
   opacity: 60%;
 }
@@ -125,6 +132,11 @@
   border-color: rgba(0, 0, 0, 0.2);
 }
 
+.modal__input_error {
+  border-color: #ff0000;
+  opacity: 1;
+}
+
 .modal__title {
   color: #fff;
 
@@ -139,6 +151,21 @@
   max-width: 75vw;
   max-height: 75vh;
   padding-bottom: 10px;
+}
+
+.modal__error {
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #ff0000;
+  transition: opacity 0.3s;
+  position: relative;
+  bottom: 23px;
+  /**left: 0;
+
+  position: absolute; **/
 }
 
 @media screen and (max-width: 620px) {
