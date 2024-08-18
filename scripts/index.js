@@ -1,4 +1,4 @@
-import Card from "./Card.js";
+import Card from "../components/Card.js";
 
 const initialCards = [
   {
@@ -32,10 +32,10 @@ const initialCards = [
   },
 ];
 
-const cardData =   {
+const cardData = {
   name: "Yosemite Valley",
   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-}
+};
 
 const card = new Card(cardData);
 
