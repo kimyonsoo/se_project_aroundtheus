@@ -1,4 +1,5 @@
 import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 
 const initialCards = [
   {
@@ -200,3 +201,17 @@ addCardForm.addEventListener("submit", handleAddCardSubmit);
 addCardButton.addEventListener("click", () => {
   openPopUp(addCardModal);
 });
+
+/* enable Validator */
+
+/*
+const editFormElement = .querySelector();
+const addFormElement =
+
+const editFormValidator = ;
+const addFormValidator = ;
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+
+*/
