@@ -82,11 +82,3 @@ export default class FormValidator {
     this._setEventListeners();
   }
 }
-
-const validationConfig = {
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_error",
-  errorClass: "modal__error",
-};
