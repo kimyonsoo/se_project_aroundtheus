@@ -33,7 +33,7 @@ export default class Card {
     this._cardImageEl.addEventListener("click", () => {
       this._handleImageClick({
         name: this._cardTitleEl.textContent,
-        link: this._cardImageEl.alt,
+        link: this._cardImageEl.src,
       });
     });
   }

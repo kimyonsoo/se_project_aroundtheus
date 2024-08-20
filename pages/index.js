@@ -75,6 +75,8 @@ const viewImageModal = document.querySelector("#view-image-modal");
 const viewImageModalCloseButton = viewImageModal.querySelector(
   "#view-image-modal-close-button"
 );
+const viewImageModalImageEl = viewImageModal.querySelector(".modal__image");
+const viewImageModalTitleEl = viewImageModal.querySelector(".modal__title");
 
 /* Functions */
 
@@ -153,6 +155,7 @@ function handleAddCardSubmit(evt) {
   renderCard({ name, link }, cardListEl);
   evt.target.reset();
   closePopUp(addCardModal);
+  addFormValidator.disableButton();
 }
 
 function renderCard(cardData, cardList) {
