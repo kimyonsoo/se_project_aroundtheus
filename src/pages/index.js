@@ -9,6 +9,8 @@ import { initialCards, validationConfig } from "../utils/Constants.js";
 const cardListEl = document.querySelector(".cards__list");
 const cardSelector = "#card-template";
 
+const imagePopUp = "#view-image-modal";
+
 /** SECTION CLASS **/
 
 // const CardPreview = new PopUpWithImage(selectors.previewPop);
@@ -16,7 +18,7 @@ const cardSection = new Section(
   {
     initialArray: initialCards,
     renderer: (cardData) => {
-      const cardEl = createCard(cardData, cardSelector, handleImageClick);
+      const cardEl = createCard(cardData);
       cardSection.addItem(cardEl);
     },
   },
@@ -25,14 +27,13 @@ const cardSection = new Section(
 
 cardSection.renderItems();
 
-/* Elements */
-// const validationConfig = {
-//   inputSelector: ".modal__input",
-//   submitButtonSelector: ".modal__button",
-//   inactiveButtonClass: "modal__button_disabled",
-//   inputErrorClass: "modal__input_error",
-//   errorClass: "modal__error",
-// };
+/** POPUP CLASS **/
+const viewImagePopUp = new PopUpWithImage(imagePopUp);
+
+/** EVENT LISTENERS **/
+viewImagePopUp.setEventListeners();
+
+/** -------------------------------------- **/
 
 const closeButtons = document.querySelectorAll(".modal__close");
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -63,9 +64,9 @@ const cardTitleInput = addCardForm.querySelector("#card-title-input");
 const cardUrlInput = addCardForm.querySelector("#card-url-input");
 
 const viewImageModal = document.querySelector("#view-image-modal");
-const viewImageModalCloseButton = viewImageModal.querySelector(
-  "#view-image-modal-close-button"
-);
+// const viewImageModalCloseButton = viewImageModal.querySelector(
+//   "#view-image-modal-close-button"
+// );
 const viewImageModalImageEl = viewImageModal.querySelector(".modal__image");
 const viewImageModalTitleEl = viewImageModal.querySelector(".modal__title");
 
@@ -89,7 +90,7 @@ function fillProfileForm() {
 }
 
 /* CreateCard function to replace getCardElement */
-function createCard(cardData, cardSelector, handleImageClick) {
+function createCard(cardData) {
   const card = new Card(cardData, cardSelector, handleImageClick);
   return card.generateCard();
 }
@@ -113,39 +114,30 @@ function handleAddCardSubmit(evt) {
   addFormValidator.disableButton();
 }
 
-function renderCard(cardData, cardList) {
-  const cardElement = createCard(cardData, cardSelector, handleImageClick);
-  cardList.prepend(cardElement);
-}
+// function handleOverlayClose(evt) {
+//   if (Array.from(evt.target.classList).includes("modal")) {
+//     closePopUp(evt.target);
+//   }
+// }
 
-function handleOverlayClose(evt) {
-  if (Array.from(evt.target.classList).includes("modal")) {
-    closePopUp(evt.target);
-  }
-}
-
-function handleEscClose(evt) {
-  if (evt.key == "Escape" && evt.type === "keydown") {
-    const modal = document.querySelector(".modal_opened");
-    closePopUp(modal);
-  }
-}
+// function handleEscClose(evt) {
+//   if (evt.key == "Escape" && evt.type === "keydown") {
+//     const modal = document.querySelector(".modal_opened");
+//     closePopUp(modal);
+//   }
+// }
 
 /*  handles the opening of the preview picture modal */
 function handleImageClick(cardData) {
-  viewImageModalImageEl.alt = cardData.name;
-  viewImageModalImageEl.src = cardData.link;
-  viewImageModalTitleEl.textContent = cardData.name;
-
-  openPopUp(viewImageModal);
+  viewImagePopUp.open(cardData);
 }
 
 /* Event Listeners */
 
-closeButtons.forEach((button) => {
-  const closestModal = button.closest(".modal");
-  button.addEventListener("click", () => closePopUp(closestModal));
-});
+// closeButtons.forEach((button) => {
+//   const closestModal = button.closest(".modal");
+//   button.addEventListener("click", () => closePopUp(closestModal));
+// });
 
 profileEditButton.addEventListener("click", () => {
   fillProfileForm();
@@ -153,10 +145,6 @@ profileEditButton.addEventListener("click", () => {
 });
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-
-// initialCards.forEach((cardData) => {
-//   renderCard(cardData, cardListEl);
-// });
 
 /* Add card */
 addCardForm.addEventListener("submit", handleAddCardSubmit);
