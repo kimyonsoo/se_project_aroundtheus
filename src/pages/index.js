@@ -1,6 +1,18 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import './index.css';
+import PopUpWithImage from "../components/PopUpWithImage.js";
+import "./index.css";
+import Section from "../components/Section.js";
+
+// const CardPreview = new PopUpWithImage(selectors.previewPop);
+const CardSection = new Section(
+  {
+    renderer: (item) => {
+      const cardEl = new Card();
+    },
+  },
+  selectors
+);
 
 const initialCards = [
   {
