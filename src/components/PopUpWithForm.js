@@ -25,11 +25,12 @@ export default class PopUpWithForm extends PopUp {
     this._popUpForm.addEventListener("submit", (e) => {
       e.preventDefault();
       this._handleFormSubmit(this._getInputValues());
+      //should clear the inputs only after submitting a card in case a user accidentally close the form
+      this._popUpForm.reset();
     });
   }
 
   close() {
     super.close();
-    this._popUpForm.reset();
   }
 }
