@@ -16,5 +16,7 @@ export default class Section {
   addItem(item) {
     //take the item and render it into this._element
     this._container.prepend(item);
+    console.log("this is the container of addItem");
+    console.log(this._container);
   }
 }
