@@ -33,8 +33,8 @@ const addCardButton = document.querySelector("#add-card-button");
 const addCardModal = document.querySelector(cardPopUpSelector);
 const addCardForm = addCardModal.querySelector(".modal__form");
 
-const cardTitleInput = addCardForm.querySelector("#card-title-input");
-const cardUrlInput = addCardForm.querySelector("#card-url-input");
+// const cardTitleInput = addCardForm.querySelector("#card-title-input");
+// const cardUrlInput = addCardForm.querySelector("#card-url-input");
 
 /** SECTION CLASS **/
 
@@ -93,9 +93,7 @@ function handleProfileEditSubmit(data) {
 }
 
 function handleAddCardSubmit(cardInput) {
-  const name = cardTitleInput.value;
-  const link = cardUrlInput.value;
-  const cardEl = createCard({ name, link });
+  const cardEl = createCard({ name: cardInput.title, link: cardInput.url });
   cardSection.addItem(cardEl);
   addCardPopUp.close();
   addFormValidator.disableButton();
