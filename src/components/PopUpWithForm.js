@@ -9,15 +9,17 @@ export default class PopUpWithForm extends PopUp {
     this._handleFormSubmit = handleFormSubmit;
   }
 
+
   _getInputValues() {
 
-    console.log(this._popUpForm.content);
-    const formEl = this._popUpForm.content
-      .querySelector(".form")
-      .cloneNode(true);
-    
-    console.log(formEl);
-    return formEl;
+    this._inputList = this._popUpForm.querySelectorAll(".modal__input");
+    this._inputValues = {}; 
+
+    this._inputList.forEach((input) => {
+      this._inputValues[input.name] = input.value;
+      console.log(input.value);
+    });
+    return this._inputValues;
   }
 
   setEventListeners() {
@@ -33,6 +35,3 @@ export default class PopUpWithForm extends PopUp {
     this._popUpForm.reset();
   }
 }
-
-// in index.js,
-// const newCardPopUp = new PopUpWithForm('#add-card-modal'), () => {};
