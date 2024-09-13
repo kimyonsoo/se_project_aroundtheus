@@ -101,9 +101,14 @@ function handleAddCardSubmit(cardInput) {
 
 function handleProfileEditButtonClick() {
   const userProfile = user.getUserInfo();
-  profileTitleInput.value = userProfile.name;
-  profileDescriptionInput.value = userProfile.description;
+  profileEditPopUp.setInputValues({
+    title: userProfile.name,
+    description: userProfile.description,
+  });
+  // profileTitleInput.value = userProfile.name;
+  // profileDescriptionInput.value = userProfile.description;
   profileEditPopUp.open();
+  editFormValidator.resetValidation();
 }
 
 function handleImageClick(cardData) {
