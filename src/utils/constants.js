@@ -37,3 +37,8 @@ export const validationConfig = {
   inputErrorClass: "modal__input_error",
   errorClass: "modal__error",
 };
+
+export const cardSelector = "#card-template";
+export const imagePopUpSelector = "#view-image-modal";
+export const profilePopUpSelector = "#profile-edit-modal";
+export const cardPopUpSelector = "#add-card-modal";
