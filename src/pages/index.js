@@ -16,6 +16,17 @@ import {
 } from "../utils/Constants.js";
 import Api from "../components/Api.js";
 
+/** API **/
+const config = {
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "984e74d2-6876-48b9-aa34-b5b7c14e830a",
+    "Content-Type": "application/json",
+  },
+};
+
+const api = new Api(config);
+
 /** ELEMENTS **/
 const cardListEl = document.querySelector(".cards__list");
 
@@ -130,13 +141,24 @@ addCardButton.addEventListener("click", () => {
   addCardPopUp.open();
 });
 
-/** API **/
-const config = {
-  url: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "984e74d2-6876-48b9-aa34-b5b7c14e830a",
-    "Content-Type": "application/json",
-  },
-};
+// api
+//   .getInitialCards()
+//   .then((res) => {
+//     const cardSection = new Section(
+//       {
+//         initialArray: initialCards,
+//         renderer: (cardData) => {
+//           const cardEl = createCard(cardData);
+//           cardSection.addItem(cardEl);
+//         },
+//       },
+//       cardListEl
+//     );
 
-const api = new Api(config);
+//     cardSection.renderItems();
+//   })
+//   .catch((err) => {
+//     console.error(`Error: ${err}`);
+//   });
+
+api.getInitialCards().then((res) => console.log(res));
