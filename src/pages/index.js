@@ -14,6 +14,7 @@ import {
   profilePopUpSelector,
   cardPopUpSelector,
 } from "../utils/Constants.js";
+import Api from "../components/Api.js";
 
 /** ELEMENTS **/
 const cardListEl = document.querySelector(".cards__list");
@@ -128,3 +129,14 @@ profileEditButton.addEventListener("click", () => {
 addCardButton.addEventListener("click", () => {
   addCardPopUp.open();
 });
+
+/** API **/
+const config = {
+  url: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "984e74d2-6876-48b9-aa34-b5b7c14e830a",
+    "Content-Type": "application/json",
+  },
+};
+
+const api = new Api(config);
