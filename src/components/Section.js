@@ -1,14 +1,13 @@
 export default class Section {
-  constructor({ initialArray, renderer }, container) {
-    this._initialArray = initialArray;
+  constructor({ renderer }, container) {
     this._renderer = renderer;
     this._container = container;
   }
 
-  renderItems() {
+  renderItems(initialArray) {
     //use this._renderer
     // to create the elements for the rendering
-    this._initialArray.forEach((item) => {
+    initialArray.forEach((item) => {
       this._renderer(item);
     });
   }

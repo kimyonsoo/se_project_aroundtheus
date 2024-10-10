@@ -42,3 +42,5 @@ export const cardSelector = "#card-template";
 export const imagePopUpSelector = "#view-image-modal";
 export const profilePopUpSelector = "#profile-edit-modal";
 export const cardPopUpSelector = "#add-card-modal";
+export const deletePopUpSelector = "#delete-card-modal";
+export const avatarPopUpSelector = "#avatar-edit-modal";

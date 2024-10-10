@@ -2,6 +2,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopUpWithImage from "../components/PopUpWithImage.js";
 import PopUpWithForm from "../components/PopUpWithForm.js";
+import PopUpWithConfirm from "../components/PopUpWithConfirm.js";
 import UserInfo from "../components/UserInfo.js";
 
 import "./index.css";
@@ -13,6 +14,8 @@ import {
   imagePopUpSelector,
   profilePopUpSelector,
   cardPopUpSelector,
+  deletePopUpSelector,
+  avatarPopUpSelector,
 } from "../utils/Constants.js";
 import Api from "../components/Api.js";
 
@@ -27,6 +30,38 @@ const config = {
 
 const api = new Api(config);
 
+api
+  .getInitialCards()
+  .then((cardData) => {
+    // const cardSection = new Section(
+    //   {
+    //     renderer: (cardData) => {
+    //       const cardEl = createCard(cardData);
+    //       cardSection.addItem(cardEl);
+    //     },
+    //   },
+    //   cardListEl
+    // );
+
+    cardSection.renderItems(cardData);
+  })
+  .catch((err) => {
+    console.error(`Initial Cards Fetch ${err}`);
+  });
+
+api
+  .getUserInfo()
+  .then((userData) => {
+    console.log(`userData: ${userData}`);
+    console.log(`userData.avatar: ${userData.avatar}`);
+
+    user.setUserInfo(userData.name, userData.about);
+    user.setAvatar(userData.avatar);
+  })
+  .catch((err) => {
+    console.error(`User Info Fetch ${err}`);
+  });
+
 /** ELEMENTS **/
 const cardListEl = document.querySelector(".cards__list");
 
@@ -34,6 +69,10 @@ const cardListEl = document.querySelector(".cards__list");
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector(profilePopUpSelector);
 const profileEditForm = profileEditModal.querySelector(".modal__form");
+
+const avatarEditButton = document.querySelector("#avatar-edit-button");
+const avatarEditModal = document.querySelector(avatarPopUpSelector);
+const avatorEditForm = avatarEditModal.querySelector("modal__form");
 
 const profileTitleInput = profileEditForm.querySelector("#profile-title-input");
 const profileDescriptionInput = profileEditForm.querySelector(
@@ -48,11 +87,12 @@ const addCardForm = addCardModal.querySelector(".modal__form");
 // const cardTitleInput = addCardForm.querySelector("#card-title-input");
 // const cardUrlInput = addCardForm.querySelector("#card-url-input");
 
-/** SECTION CLASS **/
+/* ELEMENT | REMOVE CARD */
+
+// /** SECTION CLASS **/
 
 const cardSection = new Section(
   {
-    initialArray: initialCards,
     renderer: (cardData) => {
       const cardEl = createCard(cardData);
       cardSection.addItem(cardEl);
@@ -61,18 +101,25 @@ const cardSection = new Section(
   cardListEl
 );
 
-cardSection.renderItems();
-
 /** USER CLASS **/
 
-const user = new UserInfo(".profile__title", ".profile__description");
+const user = new UserInfo(
+  ".profile__title",
+  ".profile__description",
+  ".profile__avatar"
+);
 
 /** VALIDATOR CLASS **/
 
-const editFormValidator = new FormValidator(validationConfig, profileEditForm);
+const profileFormValidator = new FormValidator(
+  validationConfig,
+  profileEditForm
+);
+const avatarFormValidator = new FormValidator(validationConfig, avatorEditForm);
 const addFormValidator = new FormValidator(validationConfig, addCardForm);
 
-editFormValidator.enableValidation();
+profileFormValidator.enableValidation();
+avatarFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 /** POPUP CLASS **/
@@ -83,6 +130,15 @@ const profileEditPopUp = new PopUpWithForm(
   handleProfileEditSubmit
 );
 const addCardPopUp = new PopUpWithForm(cardPopUpSelector, handleAddCardSubmit);
+const deleteCardPopUp = new PopUpWithConfirm(
+  deletePopUpSelector,
+  handleDeleteCardSubmit
+);
+
+const avatarEditPopUp = new PopUpWithForm(
+  avatarPopUpSelector,
+  handleAvatarEditSubmit
+);
 
 // /** -------------------------------------- **/
 // const cardTemplate =
@@ -91,24 +147,63 @@ const addCardPopUp = new PopUpWithForm(cardPopUpSelector, handleAddCardSubmit);
 /** FUNCTIONS **/
 
 /* CARD */
-// Re - why we keep createCard in index.js again? Why not in Card.js?
 function createCard(cardData) {
-  const card = new Card(cardData, cardSelector, handleImageClick);
+  const card = new Card(
+    cardData,
+    cardSelector,
+    handleImageClick,
+    handleTrashClick,
+    handleLikeClick
+  );
   return card.generateCard();
 }
 
 /* EVENT HANDLERS */
 
 function handleProfileEditSubmit(data) {
-  user.setUserInfo(data.title, data.description);
+  api.updateUserProfile(data).then(() => {
+    user.setUserInfo(data.title, data.description);
+  });
+
   profileEditPopUp.close();
 }
 
+//start from here again
+function handleAvatarEditSubmit(data) {
+  api.updateAvatar(data).then(() => {
+    user.setAvatar(data.avatar);
+  });
+
+  avatarEditPopUp.close();
+}
+
 function handleAddCardSubmit(cardInput) {
-  const cardEl = createCard({ name: cardInput.title, link: cardInput.url });
-  cardSection.addItem(cardEl);
+  console.log(cardInput);
+  console.log(cardInput.title);
+  console.log(cardInput.url);
+
+  //card.js has name and link, vs index.html has title and url
+  api.addCard({ name: cardInput.title, link: cardInput.url }).then((res) => {
+    const cardEl = createCard(res);
+    cardSection.addItem(cardEl);
+  });
+
   addCardPopUp.close();
   addFormValidator.disableButton();
+}
+
+function handleDeleteCardSubmit(card) {
+  console.log(`card: ${card}`);
+  console.log(`get id: ${card.getId()}`);
+  api
+    .deleteCard(card._id)
+    .then(() => {
+      card.removeCard();
+      deleteCardPopUp.close();
+    })
+    .catch((err) => {
+      console.error(`Card Delete ${err}`);
+    });
 }
 
 function handleProfileEditButtonClick() {
@@ -120,18 +215,46 @@ function handleProfileEditButtonClick() {
   // profileTitleInput.value = userProfile.name;
   // profileDescriptionInput.value = userProfile.description;
   profileEditPopUp.open();
-  editFormValidator.resetValidation();
+  profileFormValidator.resetValidation();
 }
 
 function handleImageClick(cardData) {
   viewImagePopUp.open(cardData);
 }
 
+function handleTrashClick(card) {
+  console.log(`handleTrashClick(card): ${card}`);
+  deleteCardPopUp.open(card);
+}
+
+function handleLikeClick(card) {
+  if (!card.isLiked) {
+    api.addLike(card.getId()).then(() => {
+      card.setIsLiked(true);
+    });
+  } else {
+    api.removeLike(card.getId()).then(() => {
+      card.setIsLiked(false);
+    });
+  }
+}
+
+// function handleAvatarClick() {
+//   const userAvatar = user.avatar;
+//   avatarEditPopUp.setInputValues({
+//     url: user.setAvatar(),
+//   });
+//   avatarEditPopUp.open();
+//   avatarFormValidator.resetValidation();
+// }
+
 /** EVENT LISTENERS **/
 
 profileEditPopUp.setEventListeners();
 addCardPopUp.setEventListeners();
 viewImagePopUp.setEventListeners();
+deleteCardPopUp.setEventListeners();
+avatarEditPopUp.setEventListeners();
 
 profileEditButton.addEventListener("click", () => {
   handleProfileEditButtonClick();
@@ -141,24 +264,6 @@ addCardButton.addEventListener("click", () => {
   addCardPopUp.open();
 });
 
-// api
-//   .getInitialCards()
-//   .then((res) => {
-//     const cardSection = new Section(
-//       {
-//         initialArray: initialCards,
-//         renderer: (cardData) => {
-//           const cardEl = createCard(cardData);
-//           cardSection.addItem(cardEl);
-//         },
-//       },
-//       cardListEl
-//     );
-
-//     cardSection.renderItems();
-//   })
-//   .catch((err) => {
-//     console.error(`Error: ${err}`);
-//   });
-
-api.getInitialCards().then((res) => console.log(res));
+avatarEditButton.addEventListener("click", () => {
+  avatarEditPopUp.open();
+});

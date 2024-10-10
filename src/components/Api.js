@@ -42,7 +42,7 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
-  createCard(cardData) {
+  addCard(cardData) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -54,20 +54,20 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._handleResponse());
+    }).then(this._handleResponse);
   }
 
   addLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._handleResponse());
+    }).then(this._handleResponse);
   }
 
   removeLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._handleResponse());
+    }).then(this._handleResponse);
   }
 }
