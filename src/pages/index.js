@@ -246,6 +246,7 @@ function handleLikeClick(card) {
 //   });
 //   avatarEditPopUp.open();
 //   avatarFormValidator.resetValidation();
+
 // }
 
 /** EVENT LISTENERS **/
