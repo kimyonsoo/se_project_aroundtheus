@@ -10,6 +10,9 @@ export default class PopUpWithForm extends PopUp {
 
     this._popUpForm = this._popUpElement.querySelector(".modal__form");
     this._handleFormSubmit = handleFormSubmit;
+
+    this._submitButton = this._popUpForm.querySelector(".modal__button");
+    this._submitButtonText = this._submitButton.textContent;
   }
 
   setInputValues(data) {
@@ -32,15 +35,27 @@ export default class PopUpWithForm extends PopUp {
     return this._inputValues;
   }
 
+  setSaving(isSaving) {
+    console.log(`this._submitButton: ${this._submitButton}`);
+
+    console.log(`isSaving: ${isSaving}`);
+    if (isSaving) {
+      this._submitButton.textContent = "Saving...";
+    } else {
+      this._submitButton.textContent = this._submitButtonText;
+    }
+  }
+
   setEventListeners() {
     this._inputList = this._popUpForm.querySelectorAll(".modal__input");
     super.setEventListeners();
     this._popUpForm.addEventListener("submit", (e) => {
       e.preventDefault();
+      this.setSaving(true);
       this._handleFormSubmit(this._getInputValues());
       //should clear the inputs only after submitting a card in case a user accidentally close the form
-      this._popUpForm.reset();
     });
+    this._popUpForm.reset();
   }
 
   close() {

@@ -163,29 +163,37 @@ function createCard(cardData) {
 
 function handleProfileEditSubmit(data) {
   api
-    .updateUserProfile(data)
-    .then(() => {
-      user.setUserInfo(data.title, data.description);
+    .updateUserProfile({ name: data.title, about: data.description })
+    .then((res) => {
+      user.setUserInfo(res.name, res.about);
+      profileEditPopUp.close();
     })
     .catch((err) => {
       console.error(`Profile Patch ${err}`);
+    })
+    .finally(() => {
+      profileEditPopUp.setSaving(false);
     });
 
   profileEditPopUp.close();
 }
 
-//start from here again
 function handleAvatarEditSubmit(data) {
   api
-    .updateAvatar({ avatar: data.avatar })
-    .then(() => {
-      user.setAvatar(data.avatar);
+    .updateAvatar({ avatar: data.url })
+    .then((res) => {
+      user.setAvatar(res.avatar);
+      avatarEditPopUp.close();
     })
     .catch((err) => {
       console.error(`Avatar Patch ${err}`);
+    })
+    .finally(() => {
+      avatarEditPopUp.setSaving(false);
     });
 
   avatarEditPopUp.close();
+  avatarFormValidator.disableButton();
 }
 
 function handleAddCardSubmit(cardInput) {
@@ -198,6 +206,9 @@ function handleAddCardSubmit(cardInput) {
     })
     .catch((err) => {
       console.error(`Add Card ${err}`);
+    })
+    .finally(() => {
+      addCardPopUp.setSaving(false);
     });
 
   addCardPopUp.close();
@@ -205,8 +216,6 @@ function handleAddCardSubmit(cardInput) {
 }
 
 function handleDeleteCardSubmit(card) {
-  console.log(`card: ${card}`);
-  console.log(`get id: ${card.getId()}`);
   api
     .deleteCard(card._id)
     .then(() => {
