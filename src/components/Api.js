@@ -27,11 +27,11 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
-  updateAvatar({ avatar }) {
+  updateAvatar(userData) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ avatar: avatar }),
+      body: JSON.stringify(userData),
     }).then(this._handleResponse);
   }
 

@@ -54,6 +54,7 @@ api
   .then((userData) => {
     console.log(`userData: ${userData}`);
     console.log(`userData.avatar: ${userData.avatar}`);
+    console.log(`userData.avatar type: ${typeof userData.avatar}`);
 
     user.setUserInfo(userData.name, userData.about);
     user.setAvatar(userData.avatar);
@@ -72,7 +73,7 @@ const profileEditForm = profileEditModal.querySelector(".modal__form");
 
 const avatarEditButton = document.querySelector("#avatar-edit-button");
 const avatarEditModal = document.querySelector(avatarPopUpSelector);
-const avatorEditForm = avatarEditModal.querySelector("modal__form");
+const avatorEditForm = avatarEditModal.querySelector(".modal__form");
 
 const profileTitleInput = profileEditForm.querySelector("#profile-title-input");
 const profileDescriptionInput = profileEditForm.querySelector(
@@ -161,18 +162,28 @@ function createCard(cardData) {
 /* EVENT HANDLERS */
 
 function handleProfileEditSubmit(data) {
-  api.updateUserProfile(data).then(() => {
-    user.setUserInfo(data.title, data.description);
-  });
+  api
+    .updateUserProfile(data)
+    .then(() => {
+      user.setUserInfo(data.title, data.description);
+    })
+    .catch((err) => {
+      console.error(`Profile Patch ${err}`);
+    });
 
   profileEditPopUp.close();
 }
 
 //start from here again
 function handleAvatarEditSubmit(data) {
-  api.updateAvatar(data).then(() => {
-    user.setAvatar(data.avatar);
-  });
+  api
+    .updateAvatar({ avatar: data.avatar })
+    .then(() => {
+      user.setAvatar(data.avatar);
+    })
+    .catch((err) => {
+      console.error(`Avatar Patch ${err}`);
+    });
 
   avatarEditPopUp.close();
 }
@@ -183,10 +194,15 @@ function handleAddCardSubmit(cardInput) {
   console.log(cardInput.url);
 
   //card.js has name and link, vs index.html has title and url
-  api.addCard({ name: cardInput.title, link: cardInput.url }).then((res) => {
-    const cardEl = createCard(res);
-    cardSection.addItem(cardEl);
-  });
+  api
+    .addCard({ name: cardInput.title, link: cardInput.url })
+    .then((res) => {
+      const cardEl = createCard(res);
+      cardSection.addItem(cardEl);
+    })
+    .catch((err) => {
+      console.error(`Add Card ${err}`);
+    });
 
   addCardPopUp.close();
   addFormValidator.disableButton();
@@ -202,7 +218,7 @@ function handleDeleteCardSubmit(card) {
       deleteCardPopUp.close();
     })
     .catch((err) => {
-      console.error(`Card Delete ${err}`);
+      console.error(`Delete Card ${err}`);
     });
 }
 
@@ -239,15 +255,13 @@ function handleLikeClick(card) {
   }
 }
 
-// function handleAvatarClick() {
-//   const userAvatar = user.avatar;
-//   avatarEditPopUp.setInputValues({
-//     url: user.setAvatar(),
-//   });
-//   avatarEditPopUp.open();
-//   avatarFormValidator.resetValidation();
-
-// }
+function handleAvatarEditButtonClick() {
+  avatarEditPopUp.setInputValues({
+    url: user.setAvatar(user._avatar),
+  });
+  avatarEditPopUp.open();
+  avatarFormValidator.resetValidation();
+}
 
 /** EVENT LISTENERS **/
 
@@ -266,5 +280,5 @@ addCardButton.addEventListener("click", () => {
 });
 
 avatarEditButton.addEventListener("click", () => {
-  avatarEditPopUp.open();
+  handleAvatarEditButtonClick();
 });
