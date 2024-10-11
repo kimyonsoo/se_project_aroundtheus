@@ -189,10 +189,6 @@ function handleAvatarEditSubmit(data) {
 }
 
 function handleAddCardSubmit(cardInput) {
-  console.log(cardInput);
-  console.log(cardInput.title);
-  console.log(cardInput.url);
-
   //card.js has name and link, vs index.html has title and url
   api
     .addCard({ name: cardInput.title, link: cardInput.url })
@@ -257,7 +253,7 @@ function handleLikeClick(card) {
 
 function handleAvatarEditButtonClick() {
   avatarEditPopUp.setInputValues({
-    url: user.setAvatar(user._avatar),
+    url: user.getAvatar(),
   });
   avatarEditPopUp.open();
   avatarFormValidator.resetValidation();
