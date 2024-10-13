@@ -36,9 +36,6 @@ export default class PopUpWithForm extends PopUp {
   }
 
   setSaving(isSaving) {
-    console.log(`this._submitButton: ${this._submitButton}`);
-
-    console.log(`isSaving: ${isSaving}`);
     if (isSaving) {
       this._submitButton.textContent = "Saving...";
     } else {
@@ -53,12 +50,8 @@ export default class PopUpWithForm extends PopUp {
       e.preventDefault();
       this.setSaving(true);
       this._handleFormSubmit(this._getInputValues());
+      this._popUpForm.reset();
       //should clear the inputs only after submitting a card in case a user accidentally close the form
     });
-    this._popUpForm.reset();
-  }
-
-  close() {
-    super.close();
   }
 }

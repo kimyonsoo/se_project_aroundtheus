@@ -174,8 +174,6 @@ function handleProfileEditSubmit(data) {
     .finally(() => {
       profileEditPopUp.setSaving(false);
     });
-
-  profileEditPopUp.close();
 }
 
 function handleAvatarEditSubmit(data) {
@@ -184,6 +182,7 @@ function handleAvatarEditSubmit(data) {
     .then((res) => {
       user.setAvatar(res.avatar);
       avatarEditPopUp.close();
+      avatarFormValidator.disableButton();
     })
     .catch((err) => {
       console.error(`Avatar Patch ${err}`);
@@ -191,9 +190,6 @@ function handleAvatarEditSubmit(data) {
     .finally(() => {
       avatarEditPopUp.setSaving(false);
     });
-
-  avatarEditPopUp.close();
-  avatarFormValidator.disableButton();
 }
 
 function handleAddCardSubmit(cardInput) {
@@ -203,6 +199,8 @@ function handleAddCardSubmit(cardInput) {
     .then((res) => {
       const cardEl = createCard(res);
       cardSection.addItem(cardEl);
+      addCardPopUp.close();
+      addFormValidator.disableButton();
     })
     .catch((err) => {
       console.error(`Add Card ${err}`);
@@ -210,9 +208,6 @@ function handleAddCardSubmit(cardInput) {
     .finally(() => {
       addCardPopUp.setSaving(false);
     });
-
-  addCardPopUp.close();
-  addFormValidator.disableButton();
 }
 
 function handleDeleteCardSubmit(card) {
@@ -250,13 +245,23 @@ function handleTrashClick(card) {
 
 function handleLikeClick(card) {
   if (!card.isLiked) {
-    api.addLike(card.getId()).then(() => {
-      card.setIsLiked(true);
-    });
+    api
+      .addLike(card.getId())
+      .then(() => {
+        card.setIsLiked(true);
+      })
+      .catch((err) => {
+        console.error(`Delete Card ${err}`);
+      });
   } else {
-    api.removeLike(card.getId()).then(() => {
-      card.setIsLiked(false);
-    });
+    api
+      .removeLike(card.getId())
+      .then(() => {
+        card.setIsLiked(false);
+      })
+      .catch((err) => {
+        console.error(`Delete Card ${err}`);
+      });
   }
 }
 
