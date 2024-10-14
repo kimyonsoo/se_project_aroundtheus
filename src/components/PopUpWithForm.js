@@ -15,6 +15,10 @@ export default class PopUpWithForm extends PopUp {
     this._submitButtonText = this._submitButton.textContent;
   }
 
+  getPopUpForm() {
+    return this._popUpForm;
+  }
+
   setInputValues(data) {
     this._inputList.forEach((input) => {
       // Here you insert the `value` by the `name` of the input
@@ -50,7 +54,6 @@ export default class PopUpWithForm extends PopUp {
       e.preventDefault();
       this.setSaving(true);
       this._handleFormSubmit(this._getInputValues());
-      this._popUpForm.reset();
       //should clear the inputs only after submitting a card in case a user accidentally close the form
     });
   }

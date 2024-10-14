@@ -75,10 +75,10 @@ const avatarEditButton = document.querySelector("#avatar-edit-button");
 const avatarEditModal = document.querySelector(avatarPopUpSelector);
 const avatorEditForm = avatarEditModal.querySelector(".modal__form");
 
-const profileTitleInput = profileEditForm.querySelector("#profile-title-input");
-const profileDescriptionInput = profileEditForm.querySelector(
-  "#profile-description-input"
-);
+// const profileTitleInput = profileEditForm.querySelector("#profile-title-input");
+// const profileDescriptionInput = profileEditForm.querySelector(
+//   "#profile-description-input"
+// );
 
 /* ELEMENT | ADD CARD */
 const addCardButton = document.querySelector("#add-card-button");
@@ -166,6 +166,8 @@ function handleProfileEditSubmit(data) {
     .updateUserProfile({ name: data.title, about: data.description })
     .then((res) => {
       user.setUserInfo(res.name, res.about);
+      profileEditPopUp.getPopUpForm().reset();
+
       profileEditPopUp.close();
     })
     .catch((err) => {
@@ -181,6 +183,8 @@ function handleAvatarEditSubmit(data) {
     .updateAvatar({ avatar: data.url })
     .then((res) => {
       user.setAvatar(res.avatar);
+      avatarEditPopUp.getPopUpForm().reset();
+
       avatarEditPopUp.close();
       avatarFormValidator.disableButton();
     })
@@ -199,6 +203,7 @@ function handleAddCardSubmit(cardInput) {
     .then((res) => {
       const cardEl = createCard(res);
       cardSection.addItem(cardEl);
+      addCardPopUp.getPopUpForm().reset();
       addCardPopUp.close();
       addFormValidator.disableButton();
     })
